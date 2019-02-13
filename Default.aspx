@@ -1,41 +1,56 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="airQ._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+	
+	<link href="Content/Default.css" rel="stylesheet" />
 
-    <div class="jumbotron">
-        <h1>AirQ</h1>
-        <p class="lead">AirQ es un componente para la medición de la calidad del aire, este dispositivo realiza las mediciones y observaciones puntuales de los parámetros meteorológicos utilizando los sensores adecuados para así poder establecer el comportamiento atmosférico.</p>
-        <p><a href="" class="btn btn-primary btn-lg">Mas informacion &raquo;</a></p>
-    </div>
+	<header>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Introduccion</h2>
-            <p>
-                El monitoreo y control de la contaminación atmosférica, es de suma relevancia debido a que la contaminación del aire ha aumentado las enfermedades y muertes por la contaminación del mismo, afectando la calidad de vida de los habitantes, a partir de ello surge la integración de tecnologías de plataformas electrónicas unidas a la ingeniería ambiental, a través de la programación y configuración que permita monitorear y supervisar las variables ambientales del aire.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://github.com/Yercar18/Dronefenix">Mas informacion &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Equipos necesarios</h2>
-            <p>
-                Uno o varios modulos AirQ que puedes adquirir en els iguiente enlace.
-            </p>
-            <p>
-                <a class="btn btn-default" href="">Compra tu AirQ ahora mismo!! &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Historia del software</h2>
-            <p>
-                Este software y hardware ha sido diseñado y ensamblado en colombia.
-            </p>
-            <p>
-                <a class="btn btn-default" href="">Mas informacion &raquo;</a>
-            </p>
-        </div>
-    </div>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+	  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+	  <!-- Slide One - Set the background image for this slide in the line below -->
+	  <div class="carousel-item active" style="background-image: url('/Static/Images/SSAR3D.jpg'">
+		<div class="carousel-caption d-none d-md-block">
+		  <h2 class="display-4">Sistema de supervision y apagado remoto para equipos de impresion 3D</h2>
+		  <p class="lead">Si deseas poder apagar remotamente tus impresoras y conocer la temperatura a la cual estan imprimiendo te invitamos a seguir este enlace <a href="#">Articulo</a>.</p>
+		</div>
+	  </div>
+	  <!-- Slide Two - Set the background image for this slide in the line below -->
+	  <div class="carousel-item" style="background-image: url('/Static/Images/powerMeter.jpg')">
+		<div class="carousel-caption d-none d-md-block">
+		  <h2 class="display-4">Monitores de linea Mono-Bi-TriFasico</h2>
+		  <p class="lead">Monitorea el consumo electrico de tu hogar.</p>
+		</div>
+	  </div>
+	  <!-- Slide Three - Set the background image for this slide in the line below -->
+	  <div class="carousel-item" style="background-image: url('/Static/Images/airQ.jpg')">
+		<div class="carousel-caption d-none d-md-block">
+		  <h2 class="display-4">Estaciones metereologicas</h2>
+		  <p class="lead">AirQ V1.00.</p>
+		</div>
+	  </div>
+	</div>
+	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		  <span class="sr-only">Previous</span>
+		</a>
+	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		  <span class="sr-only">Next</span>
+		</a>
+  </div>
+</header>
 
-</asp:Content>
+<!-- Page Content -->
+<section class="py-5">
+  <div class="container">
+	<h1 class="display-4">Full Page Image Slider</h1>
+	<p class="lead">The background images for the slider are set directly in the HTML using inline CSS. The images in this snippet are from <a href="https://unsplash.com">Unsplash</a>, taken by <a href="https://unsplash.com/@joannakosinska">Joanna Kosinska</a>!</p>
+  </div>
+</section>
+ </asp:Content>
