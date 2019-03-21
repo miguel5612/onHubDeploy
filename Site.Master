@@ -1,56 +1,38 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="airQ.SiteMaster" %>
 
-<!DOCTYPE html>
 
-<html lang="en">
-<head runat="server">
-	
-	<meta charset="utf-8" />
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <title>OnHub</title>
+
+    <meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="google-site-verification" content="4EOtEm4UDA9x3EZAkt41zt6HJmOwEJHIvJ4PBdXZwlE" />
-	<title><%: Page.Title %> - Medicion online acerca de calidad de aire</title>
 
 	<asp:PlaceHolder runat="server">
 		<%: Scripts.Render("~/bundles/modernizr") %>
 	</asp:PlaceHolder>
 
-	<webopt:bundlereference runat="server" path="~/Content/css" />
-	
-	<script src="Scripts/jquery-3.3.1.min.js"></script>
+
 	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-	<link href="Content/bootstrap.min.css" rel="stylesheet" />
-	<link href="Content/Bootstrap%204.1.3/bootstrap.min.css" rel="stylesheet" />
+    <link href="Shared/css/nav.css" rel="stylesheet" />
+    <link href="Shared/css/main.css" rel="stylesheet" />
+    <link href="Shared/css/index.css" rel="stylesheet" />    
+    <link href="Shared/Bootstrap/3.4.0/bootstrap.min.css" rel="stylesheet" />
+    
+    <script src="Shared/Bootstrap/3.4.0/jquery.min.js"></script>	
+    <script src="Shared/Bootstrap/3.4.0/bootstrap.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131597794-1"></script>
+	<script src="Scripts/gtag.js"></script>	
 
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container">
-	<a class="navbar-brand" href="/Default">ONHUB - Un lugar para registrar todos tus dispositivos</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-		  <span class="navbar-toggler-icon"></span>
-		</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-	  <ul class="navbar-nav ml-auto">
-		<li class="nav-item active">
-		  <a class="nav-link" href="/Default">Inicio
-				<span class="sr-only">(current)</span>
-			  </a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="/About">Acerca de nosotros</a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="/Register">Registrate ahora!</a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="/Login">Inicia sesion</a>
-		</li>
-	  </ul>
-	</div>
-  </div>
-</nav>
-	<form runat="server">
+<div class="row"> 
+    <form runat="server">
 		<asp:ScriptManager runat="server">
 			<Scripts>
 				<%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -70,11 +52,39 @@
 				<%--Site Scripts--%>
 			</Scripts>
 		</asp:ScriptManager>
-		
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131597794-1"></script>
-	<script src="Scripts/gtag.js"></script>
-		
+	
+          <div class="col-lg-11 col-md-11 col-sm-12" id="divNav">
+    <nav class="navbar  navbar-findcond navbar-fixed-top">
+
+    <div class="container-navbar">
+          <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+ 
+         <a class="nav-brand" id="logo">
+          <img class="img-logo" src="/Shared/image/logo.jpg">
+        </a>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right"> 
+            <li class="lnkNav nav-item active"><a class="nav-link" href="">Pagina principal</a></li>
+            <li class="lnkNav nav-item"><a class="nav-link" href="">Servicios</a></li>
+            <li class="lnkNav nav-item"><a class="nav-link" href="">Acerca de nosotros</a></li>
+            <li class="lnkNav nav-item"><a class="nav-link" href="">Contacto</a></li>
+            <ul class="dropdown-menu" role="menu">                  
+        </ul>
+          <li class=""> 
+              <asp:Button ID="Button1" CssClass="btnRegister" OnClick="Button1_Click"  runat="server" Text="Registrarse" />
+          </li>
+        </ul>
+      </div>
+
+        </div>
+  </div>
+</nav>
+ </div>
 		<div class="container body-content">
 			<asp:ContentPlaceHolder ID="MainContent" runat="server">
 			</asp:ContentPlaceHolder>
@@ -83,11 +93,9 @@
 				<p>&copy; <%: DateTime.Now.Year %> - AirQ App</p>
 			</footer>
 		</div>
-
 	</form>
-	<script src="Scripts/jquery-3.3.1.slim.js"></script>
-	<script src="Scripts/popper.min.js"></script>
-<script src="Scripts/bootstrap.min.js"></script>
-
+    </div>
 </body>
 </html>
+
+
