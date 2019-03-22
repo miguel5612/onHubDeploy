@@ -16,6 +16,9 @@
 		<%: Scripts.Render("~/bundles/modernizr") %>
 	</asp:PlaceHolder>
 
+    
+	<asp:ContentPlaceHolder ID="headContent" runat="server">
+	</asp:ContentPlaceHolder>
 
 	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Shared/css/nav.css" rel="stylesheet" />
@@ -90,7 +93,7 @@
 			</asp:ContentPlaceHolder>
 			<hr />
 			<footer>
-				<p>&copy; <%: DateTime.Now.Year %> - AirQ App</p>
+				<p>&copy; <%: DateTime.Now.Year %> - OnHub App</p>
 			</footer>
 		</div>
 	</form>
