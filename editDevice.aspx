@@ -74,9 +74,9 @@
         }
         catch (err) {}
     </script>
-<asp:SqlDataSource runat="server" ID="dsDevices" ConnectionString="<%$ ConnectionStrings:AirQConnectionString %>"
-		ProviderName="<%$ ConnectionStrings:AirQConnectionString.ProviderName %>"
-	SelectCommand="SELECT * FROM devices">
+<asp:SqlDataSource runat="server" ID="dsDevices" ConnectionString="<%$ ConnectionStrings:onHubConnectionString %>"
+		ProviderName="<%$ ConnectionStrings:onHubConnectionString.ProviderName %>"
+	SelectCommand="SELECT * FROM thing">
 </asp:SqlDataSource>
 </asp:Content>
 

@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/dashboard.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="airQ.dashboard1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-	<script src="Scripts/dash.js"></script>
+	<!--<script src="Scripts/dash.js"></script>-->
 	<script src="Scripts/jquery.signalR-2.4.0.min.js"></script>
 	<script src="signalr/hubs"></script>
-	<script src="Scripts/websocket.js"></script>
+    <script src="Shared/dashboard/ws/websocket.js"></script>
 
     <link href="Shared/dashboard/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="Shared/dashboard/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
@@ -12,10 +12,16 @@
     <style>
         .row
         {            
-            margin-top: 13%;
+            /*margin-top: 13%;*/
         }
         .body-content
         {
+        }
+        body
+        {
+            width:100%;
+            padding:0;
+            margin:0;
         }
     </style>
 
@@ -23,15 +29,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	
 
-
     
   <!-- Main content -->
-  <div class="main-content">
+  <div runat="server" id="divMeters" class="main-content">
     <!-- Top navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard -</a> <asp:Label Text="" ID="lblTittle" runat="server" />
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -52,34 +57,34 @@
                   <img alt="Image placeholder" src="Shared/dashboard/assets/img/theme/team-4-800x800.jpg">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                  <span class="mb-0 text-sm  font-weight-bold" id="spanName"></span>
                 </div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
+                <h6 class="text-overflow m-0">Bienvenid@!</h6>
               </div>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a href="#" onclick="showPopUp('Agregar Dispositivo','addDevice')" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <span>Agregar dispositivo</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a onclick="showPopUp('Mi cuenta','myAccount')" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+                <span>Configuraciones de la cuenta</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a onclick="showPopUp('Configuracion de notificaciones','notifySettings')" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+                <span>Notificaciones</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a onclick="showPopUp('Tutoriales','tutorials')" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
-                <span>Support</span>
+                <span>Tutoriales</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="#!" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
-                <span>Logout</span>
+                <span>Cerrar sesion</span>
               </a>
             </div>
           </li>
@@ -97,8 +102,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Dispositivos</h5>
+                      <span class="h2 font-weight-bold mb-0" id="deviceCount">1</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -106,10 +111,10 @@
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  <%--<p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
+                    <span class="text-nowrap">Online</span>
+                  </p>--%>
                 </div>
               </div>
             </div>
@@ -118,19 +123,19 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Temperatura maxima</h5>
+                      <span class="h2 font-weight-bold mb-0">100</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-thermometer-full"></i>
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  <%--<p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
+                    <span class="text-nowrap">OK</span>
+                  </p>--%>
                 </div>
               </div>
             </div>
@@ -139,19 +144,19 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Ultima medicion reportada: </h5>
                       <span class="h2 font-weight-bold mb-0">924</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-clock"></i>
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  <%--<p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
                     <span class="text-nowrap">Since yesterday</span>
-                  </p>
+                  </p>--%>
                 </div>
               </div>
             </div>
@@ -160,19 +165,19 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Estado de tu equipo</h5>
                       <span class="h2 font-weight-bold mb-0">49,65%</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
+                        <i class="fas fa-power-off"></i>
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  <%--<p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
                     <span class="text-nowrap">Since last month</span>
-                  </p>
+                  </p>--%>
                 </div>
               </div>
             </div>
@@ -188,20 +193,26 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                  <h2 class="text-white mb-0">Sales value</h2>
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Supervision</h6>
+                  <h2 class="text-white mb-0">Control voltaje/corriente</h2>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
+                    <li class="nav-item mr-2 mr-md-0">
+                      <a href="#" class="nav-link py-2 px-3 active" id="corriente" data-toggle="tab">
+                        <span class="d-none d-md-block">Corriente</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link py-2 px-3" id="voltaje" data-toggle="tab">
+                        <span class="d-none d-md-block">Voltaje</span>
+                        <span class="d-md-none">W</span>
+                      </a>
+                    </li>                      
+                    <li class="nav-item">
+                      <a href="#" class="nav-link py-2 px-3" id="potencia" data-toggle="tab">
+                        <span class="d-none d-md-block">potencia</span>
                         <span class="d-md-none">W</span>
                       </a>
                     </li>
@@ -213,7 +224,7 @@
               <!-- Chart -->
               <div class="chart">
                 <!-- Chart wrapper -->
-                <canvas id="chart-sales" class="chart-canvas"></canvas>
+                <canvas id="chart-electric" class="chart-canvas"></canvas>
               </div>
             </div>
           </div>
@@ -223,15 +234,15 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h2 class="mb-0">Total orders</h2>
+                  <h6 class="text-uppercase text-muted ls-1 mb-1">Rendimiento</h6>
+                  <h2 class="mb-0">Temperaturas</h2>
                 </div>
               </div>
             </div>
             <div class="card-body">
               <!-- Chart -->
               <div class="chart">
-                <canvas id="chart-orders" class="chart-canvas"></canvas>
+                <canvas id="chart-temperatures" class="chart-canvas"></canvas>
               </div>
             </div>
           </div>
@@ -456,39 +467,69 @@
           </div>
         </div>
       </div>
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
     </div>
   </div>
+    <div id="popupAll" class="modal fade">
+        <div id="popupAll1" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: justify;">
+                <table width="100%" border="1" style="border-collapse:collapse;">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="" id="popUpTitel">Agregar dispostivo</th>
+                    </tr>
+                   
+                </thead>
+                <tbody id="trPopup"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer" style="clear:both;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+      </div>
+    </div>
 
-
+    <div style="visibility:hidden">
+		<asp:TextBox runat="server" ID="txtReceived"/>
+	</div>
 
 
     <script src="Shared/dashboard/assets/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="Shared/dashboard/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    <script src="Shared/dashboard/assets/js/argon.js"></script>
+    <script>
+         function showPopUp(titulo, url) {             
+                var html = '<iframe class="embed-responsive-item" src="/' + url  + '" style="border: 0px;width: 100%; height: 400px;"></iframe>';
+                $('#trPopup').html(html);
+                $('#popUpTitel').html(titulo);
+                $('#popupAll').modal('show');       
+            return;
+        }
+        function HideModal()
+        {
+            $('#popupAll').modal('hide');
+            window.location.reload(true);
+            return false;
+        }
 
+        $( document ).ready(function() {
+
+            //Get usrData
+
+           $.ajax({
+                type: "POST",
+                url: '/dashboard.aspx/getUserData',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#spanName").text(data.d[0].userName);
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+
+
+        });
+    </script>
 </asp:Content>
